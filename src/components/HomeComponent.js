@@ -1,6 +1,7 @@
-import { Button } from "reactstrap";
+import { Button} from "reactstrap";
 import React, {Component} from "react";
 import { Questions } from '../shared/questions';
+import Options from './OptionComponent';
 
 class Home extends Component {
 
@@ -26,17 +27,15 @@ class Home extends Component {
         var questions = [];
         for(var i=0;i<5;i++)
             questions.push(this.state.Questions[random[i]]);
-        const options = (answers) => answers.map((answer) => {
-            return(<div className="col">
-                        <Button color="info"> {answer } </Button> 
-                    </div>);
-        });
+        var option = []
         const print = questions.map((question) => {
             return (
-                <div className="container">
-                    <div className = "row mx-auto" > {question.question} </div> 
-                    <div className = "row">
-                       {options(question.answers)}
+                <div className="questionBox">
+                    <div className = "row mx-auto" > 
+                            <h5>{question.question} </h5> 
+                    </div> 
+                    <div className = "row mx-auto">
+                       <Options options={question.answers}/>
                     </div>
                 </div>
                 )
@@ -50,9 +49,9 @@ class Home extends Component {
     render()
     {   
         return(
-            <div className="container">
+            <div>
                  {this.printName()}
-                 <div className="row justify-content-md-center mt-3">
+                 <div className="row justify-content-md-center mt-3 mb-2">
                     <Button color="primary"> Submit </Button>
                  </div>
             </div>
