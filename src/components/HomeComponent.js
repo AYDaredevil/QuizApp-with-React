@@ -63,8 +63,10 @@ class Home extends Component {
         );
         else
         return(
-            <div>
+            <div className="score-board">
+                <div className="score">
                 <h1> You Got {this.props.count/2}/5 ! </h1>
+                </div>
             </div>
         );
     }
