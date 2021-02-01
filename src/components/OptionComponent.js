@@ -4,11 +4,13 @@ import React, {Component} from 'react';
 class Options extends Component {
     constructor(props){
         super(props);
+        this.printAns  = this.printAns.bind(this);
+        this.printOption = this.printOption.bind(this);
         this.state = {
-            answer : ""
+            answer : "",
+            count : 0
         };
     }
-
     printOption()
     {
         const print = this.props.options.map((option) => {
@@ -19,16 +21,24 @@ class Options extends Component {
                     })}}>
                         {option}
                     </Button>
-                )
+                );
         });
         return (<div> {print} </div>)
     }
 
     printAns()
     {
-        console.log(this.state.answer);
         if(this.state.answer){
-            return(<Button> {this.state.answer} </Button>);
+            if(this.state.count === 0)
+            {
+                this.props.check(this.state.answer, this.props.correct);
+                this.setState({
+                    count : 1
+                });
+            }
+            if(this.state.answer === this.props.correct)
+            return(<Button color = "success"> {this.state.answer} </Button>);
+            else return (<Button color = "danger"> {this.state.answer} </Button>);
         }
         else return (<div> </div>);
     }

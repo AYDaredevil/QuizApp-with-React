@@ -1,10 +1,18 @@
-export const Reducer = (state = {
-        correct : 0
-        }, action) => {
+export const initialState = {
+    correct : 0
+};
+
+export const Reducer = (state = initialState, action) => {
     switch(action.type){
         case "CHECK":
+        {
             var curr = state.correct;
-            return {...state, correct : curr + (action.payload[0] === action.payload[1] ? 1 : 0)};
+            var str1 = action.payload[0];
+            var str2 = action.payload[1];
+            if(str1 === str2)
+                curr = curr+1;
+            return {...state, correct : curr};
+        }
         default :
             return state;
     }

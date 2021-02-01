@@ -1,5 +1,4 @@
 import React, { Component}  from 'react';
-import { Jumbotron, Button } from 'reactstrap';
 
 class Header extends Component {
     render() {

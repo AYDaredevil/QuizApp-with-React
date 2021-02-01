@@ -9,7 +9,9 @@ class Home extends Component {
         super(props);
         this.printName = this.printName.bind(this);
         this.state = {
-            Questions : Questions
+            Questions : Questions,
+            FiveQuestion : [],
+            cnt : 0
         };
     }
     printName()
@@ -19,23 +21,23 @@ class Home extends Component {
         {
             var num = Math.floor(Math.random()*this.state.Questions.length);
             if(!random.includes(num))
-            {
                 random.push(num);
-                console.log(num);
-            }
         }
         var questions = [];
         for(var i=0;i<5;i++)
             questions.push(this.state.Questions[random[i]]);
-        var option = []
-        const print = questions.map((question) => {
+        if(this.state.FiveQuestion.length === 0)
+            this.setState({
+                FiveQuestion : questions
+            });
+        const print = this.state.FiveQuestion.map((question) => {
             return (
                 <div className="questionBox">
                     <div className = "row mx-auto" > 
                             <h5>{question.question} </h5> 
                     </div> 
                     <div className = "row mx-auto">
-                       <Options options={question.answers}/>
+                       <Options options={question.answers} check = {this.props.check} correct = {question.correct} />
                     </div>
                 </div>
                 )
@@ -48,12 +50,21 @@ class Home extends Component {
     }
     render()
     {   
+        if(this.state.cnt == 0)
         return(
             <div>
                  {this.printName()}
                  <div className="row justify-content-md-center mt-3 mb-2">
-                    <Button color="primary"> Submit </Button>
+                    <Button color="primary" onClick = {() => {this.setState({
+                        cnt : 1
+                    })}}> Submit </Button>
                  </div>
+            </div>
+        );
+        else
+        return(
+            <div>
+                <h1> You Got {this.props.count/2}/5 ! </h1>
             </div>
         );
     }

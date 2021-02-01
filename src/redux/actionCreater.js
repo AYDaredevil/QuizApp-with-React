@@ -1,4 +1,4 @@
-export const check = (answer) => ({
+export const check = (answer, option ) => ({
    type : "CHECK",
-   payload : answer 
+   payload : [ answer, option ] 
 });
